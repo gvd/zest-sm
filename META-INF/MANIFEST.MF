@@ -6,10 +6,17 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: com.ghvandoorn.zest.statemachine.Activator
 Bundle-Vendor: g.h.vandoorn
 Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ com.ghvandoorn.xtext.statemachine;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
-Import-Package: org.eclipse.ui.texteditor,
+Import-Package: org.eclipse.emf.ecore,
+ org.eclipse.emf.ecore.util,
+ org.eclipse.jface.text,
+ org.eclipse.ui.texteditor,
+ org.eclipse.xtext.resource,
  org.eclipse.xtext.ui.editor,
  org.eclipse.xtext.ui.editor.model,
- org.eclipse.zest.core.viewers
+ org.eclipse.xtext.util.concurrent,
+ org.eclipse.zest.core.viewers,
+ org.eclipse.zest.core.widgets
