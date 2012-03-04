@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="Visualization"
+            id="com.ghvandoorn.zest.statemachine">
+      </category>
+      <view
+            name="State Machine View"
+            icon="icons/sample.gif"
+            category="com.ghvandoorn.zest.statemachine"
+            class="com.ghvandoorn.zest.statemachine.views.StateMachineView"
+            id="com.ghvandoorn.zest.statemachine.views.StateMachineView">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               ratio="0.5"
+               relative="org.eclipse.ui.views.TaskList"
+               relationship="right"
+               id="com.ghvandoorn.zest.statemachine.views.StateMachineView">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
+
+</plugin>
