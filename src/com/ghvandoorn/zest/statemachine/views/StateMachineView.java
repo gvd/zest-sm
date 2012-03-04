@@ -106,7 +106,6 @@ public class StateMachineView extends ViewPart implements IPartListener, IExecut
 	@Override
 	public void postExecuteSuccess(String commandId, Object returnValue) {
 		if (commandId.equals(IWorkbenchCommandConstants.FILE_SAVE)) {
-			System.out.println("Draw on save");
 			drawGraph(mCurrentDocument);
 		}
 	}
