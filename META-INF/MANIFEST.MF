@@ -9,4 +9,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
-Import-Package: org.eclipse.zest.core.viewers
+Import-Package: org.eclipse.ui.texteditor,
+ org.eclipse.xtext.ui.editor,
+ org.eclipse.xtext.ui.editor.model,
+ org.eclipse.zest.core.viewers
