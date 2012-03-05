@@ -19,4 +19,6 @@ Import-Package: org.eclipse.emf.ecore,
  org.eclipse.xtext.ui.editor.model,
  org.eclipse.xtext.util.concurrent,
  org.eclipse.zest.core.viewers,
- org.eclipse.zest.core.widgets
+ org.eclipse.zest.core.widgets,
+ org.eclipse.zest.layouts,
+ org.eclipse.zest.layouts.algorithms

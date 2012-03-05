@@ -24,6 +24,7 @@ import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.eclipse.zest.core.viewers.GraphViewer;
+import org.eclipse.zest.layouts.algorithms.TreeLayoutAlgorithm;
 
 import com.ghvandoorn.xtext.statemachine.dsl.StateMachine;
 import com.ghvandoorn.zest.statemachine.providers.StatemachineContentProvider;
@@ -52,7 +53,7 @@ public class StateMachineView extends ViewPart implements IPartListener, IExecut
 	public void createPartControl(Composite parent) {
 		mViewer = new GraphViewer(parent, SWT.BORDER);
 		mViewer.setContentProvider(new StatemachineContentProvider());
-
+		applyTreeLayout();
 		// Create the help context id for the viewer's control
 		PlatformUI.getWorkbench().getHelpSystem().setHelp(mViewer.getControl(), "com.ghvandoorn.zest.statemachine.viewer");
 	}
@@ -106,6 +107,10 @@ public class StateMachineView extends ViewPart implements IPartListener, IExecut
 				return true;
 			}
 		});
+	}
+
+	public void applyTreeLayout() {
+		mViewer.setLayoutAlgorithm(new TreeLayoutAlgorithm(TreeLayoutAlgorithm.LEFT_RIGHT), true);
 	}
 
 	@Override
