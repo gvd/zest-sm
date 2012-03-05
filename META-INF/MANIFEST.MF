@@ -10,7 +10,8 @@ Require-Bundle: org.eclipse.ui,
  com.ghvandoorn.xtext.statemachine;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
-Import-Package: org.eclipse.emf.ecore,
+Import-Package: org.eclipse.draw2d,
+ org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.util,
  org.eclipse.jface.text,
  org.eclipse.ui.texteditor,
