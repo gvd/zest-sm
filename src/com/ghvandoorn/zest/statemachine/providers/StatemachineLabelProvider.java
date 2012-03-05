@@ -6,12 +6,14 @@ import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.zest.core.viewers.IEntityConnectionStyleProvider;
+import org.eclipse.zest.core.viewers.IFigureProvider;
 import org.eclipse.zest.core.widgets.ZestStyles;
 
 import com.ghvandoorn.xtext.statemachine.dsl.State;
+import com.ghvandoorn.xtext.statemachine.dsl.StateMachine;
 import com.ghvandoorn.xtext.statemachine.dsl.Transition;
 
-public class StatemachineLabelProvider extends LabelProvider implements ILabelProvider, IEntityConnectionStyleProvider {
+public class StatemachineLabelProvider extends LabelProvider implements ILabelProvider, IEntityConnectionStyleProvider, IFigureProvider {
 	@Override
 	public String getText(Object element) {
 		if (element instanceof State) {
@@ -52,5 +54,21 @@ public class StatemachineLabelProvider extends LabelProvider implements ILabelPr
 	@Override
 	public ConnectionRouter getRouter(Object src, Object dest) {
 		return null;
+	}
+
+	@Override
+	public IFigure getFigure(Object element) {
+		IFigure result = null;
+		if (element instanceof State) {
+			State state = (State) element;
+			StatemachineStateFigure.Type type = StatemachineStateFigure.Type.REGULAR;
+			if (state.equals(((StateMachine)state.eResource().getContents().get(0)).getInitialState())) {
+				type = StatemachineStateFigure.Type.INITIAL;
+			} else if (state.getTransitions().isEmpty()) {
+				type = StatemachineStateFigure.Type.FINAL;
+			}
+			result = new StatemachineStateFigure(state.getName(), type);
+		}
+		return result;
 	}
 }
