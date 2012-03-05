@@ -28,6 +28,7 @@ import org.eclipse.zest.layouts.algorithms.TreeLayoutAlgorithm;
 
 import com.ghvandoorn.xtext.statemachine.dsl.StateMachine;
 import com.ghvandoorn.zest.statemachine.providers.StatemachineContentProvider;
+import com.ghvandoorn.zest.statemachine.providers.StatemachineLabelProvider;
 
 public class StateMachineView extends ViewPart implements IPartListener, IExecutionListener {
 
@@ -53,6 +54,7 @@ public class StateMachineView extends ViewPart implements IPartListener, IExecut
 	public void createPartControl(Composite parent) {
 		mViewer = new GraphViewer(parent, SWT.BORDER);
 		mViewer.setContentProvider(new StatemachineContentProvider());
+		mViewer.setLabelProvider(new StatemachineLabelProvider());
 		applyTreeLayout();
 		// Create the help context id for the viewer's control
 		PlatformUI.getWorkbench().getHelpSystem().setHelp(mViewer.getControl(), "com.ghvandoorn.zest.statemachine.viewer");
