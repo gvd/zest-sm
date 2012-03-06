@@ -34,5 +34,28 @@
             file="contexts.xml">
       </contexts>
    </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="com.ghvandoorn.zest.statemachine.handlers.ApplyTreeLayoutHandler"
+            id="com.ghvandoorn.zest.statemachine.handlers.ApplyTreeLayout"
+            name="Tree Layout">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:com.ghvandoorn.zest.statemachine.views.StateMachineView">
+         <menu
+               label="Layouts">
+            <command
+                  commandId="com.ghvandoorn.zest.statemachine.handlers.ApplyTreeLayout"
+                  label="Tree Layout"
+                  style="radio">
+            </command>
+         </menu>
+      </menuContribution>
+   </extension>
 
 </plugin>
