@@ -41,6 +41,11 @@
             id="com.ghvandoorn.zest.statemachine.handlers.ApplyTreeLayout"
             name="Tree Layout">
       </command>
+      <command
+            defaultHandler="com.ghvandoorn.zest.statemachine.handlers.ApplySpringLayoutHandler"
+            id="com.ghvandoorn.zest.statemachine.handlers.ApplySpringLayout"
+            name="Spring Layout">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
@@ -52,6 +57,11 @@
             <command
                   commandId="com.ghvandoorn.zest.statemachine.handlers.ApplyTreeLayout"
                   label="Tree Layout"
+                  style="radio">
+            </command>
+            <command
+                  commandId="com.ghvandoorn.zest.statemachine.handlers.ApplySpringLayout"
+                  label="Spring Layout"
                   style="radio">
             </command>
          </menu>

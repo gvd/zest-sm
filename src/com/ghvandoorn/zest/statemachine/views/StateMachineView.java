@@ -24,6 +24,7 @@ import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.eclipse.zest.core.viewers.GraphViewer;
+import org.eclipse.zest.layouts.algorithms.SpringLayoutAlgorithm;
 import org.eclipse.zest.layouts.algorithms.TreeLayoutAlgorithm;
 
 import com.ghvandoorn.xtext.statemachine.dsl.StateMachine;
@@ -113,6 +114,10 @@ public class StateMachineView extends ViewPart implements IPartListener, IExecut
 
 	public void applyTreeLayout() {
 		mViewer.setLayoutAlgorithm(new TreeLayoutAlgorithm(TreeLayoutAlgorithm.LEFT_RIGHT), true);
+	}
+
+	public void applySpringLayout() {
+		mViewer.setLayoutAlgorithm(new SpringLayoutAlgorithm(), true);
 	}
 
 	@Override
