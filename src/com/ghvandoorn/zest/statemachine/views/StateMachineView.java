@@ -7,6 +7,8 @@ import org.eclipse.core.commands.NotHandledException;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorPart;
@@ -19,9 +21,11 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.commands.ICommandService;
 import org.eclipse.ui.part.ViewPart;
+import org.eclipse.xtext.resource.DefaultLocationInFileProvider;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
+import org.eclipse.xtext.util.ITextRegion;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.eclipse.zest.core.viewers.GraphViewer;
 import org.eclipse.zest.layouts.algorithms.SpringLayoutAlgorithm;
@@ -31,11 +35,12 @@ import com.ghvandoorn.xtext.statemachine.dsl.StateMachine;
 import com.ghvandoorn.zest.statemachine.providers.StatemachineContentProvider;
 import com.ghvandoorn.zest.statemachine.providers.StatemachineLabelProvider;
 
-public class StateMachineView extends ViewPart implements IPartListener, IExecutionListener {
+public class StateMachineView extends ViewPart implements IPartListener, IExecutionListener, SelectionListener {
 
 	private GraphViewer mViewer = null;
 	private XtextEditor mCurrentXtextEditor = null;
 	private IXtextDocument mCurrentDocument = null;
+	private DefaultLocationInFileProvider mLocationProvider = null;
 
 	/**
 	 * The ID of the view as specified by the extension.
@@ -56,9 +61,12 @@ public class StateMachineView extends ViewPart implements IPartListener, IExecut
 		mViewer = new GraphViewer(parent, SWT.BORDER);
 		mViewer.setContentProvider(new StatemachineContentProvider());
 		mViewer.setLabelProvider(new StatemachineLabelProvider());
+		mViewer.getGraphControl().addSelectionListener(this);
 		applyTreeLayout();
 		// Create the help context id for the viewer's control
 		PlatformUI.getWorkbench().getHelpSystem().setHelp(mViewer.getControl(), "com.ghvandoorn.zest.statemachine.viewer");
+
+		mLocationProvider = new DefaultLocationInFileProvider();
 	}
 
 	/**
@@ -120,6 +128,17 @@ public class StateMachineView extends ViewPart implements IPartListener, IExecut
 		mViewer.setLayoutAlgorithm(new SpringLayoutAlgorithm(), true);
 	}
 
+	private void selectObject(IXtextDocument document, final EObject object) {
+		document.readOnly(new IUnitOfWork<Boolean, XtextResource>() {
+			@Override
+			public Boolean exec(final XtextResource resource) throws Exception {
+				ITextRegion location = mLocationProvider.getFullTextRegion(object);
+				mCurrentXtextEditor.selectAndReveal(location.getOffset(), location.getLength());
+				return true;
+			}
+		});
+	}
+
 	@Override
 	public void partBroughtToTop(IWorkbenchPart part) {
 	}
@@ -154,5 +173,19 @@ public class StateMachineView extends ViewPart implements IPartListener, IExecut
 
 	@Override
 	public void preExecute(String commandId, ExecutionEvent event) {
+	}
+
+	@Override
+	public void widgetSelected(SelectionEvent e) {
+		if (e.item != null) {
+			Object object = e.item.getData();
+			if (object instanceof EObject) {
+				selectObject(mCurrentDocument, (EObject)object);
+			}
+		}
+	}
+
+	@Override
+	public void widgetDefaultSelected(SelectionEvent e) {
 	}
 }
